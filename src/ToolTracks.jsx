@@ -10,8 +10,9 @@ import { Panel, S as BASE, MONO } from "./ui.jsx";
  * pro Werkzeug statt einer einmaligen fürs Gesamtprojekt.
  *
  * Alle hier festgehaltenen Fakten stammen aus dem Hauptrepository:
- * 00-projekt/offene-punkte.md, entscheidungsprotokoll.md (ENT-003, ENT-006),
- * 01-gate1-problem-markt/rapport-tool-kernfrage.md,
+ * 00-projekt/offene-punkte.md, entscheidungsprotokoll.md (ENT-003, ENT-006,
+ * ENT-007), 01-gate1-problem-markt/rapport-tool-kernfrage.md,
+ * 01-gate1-problem-markt/werkzeug-vision.md,
  * 99-recherche/wettbewerb/secplannet-analyse.md.
  * Nichts hier ist erfunden — nur nachgezogen. Bei Widerspruch zwischen
  * dieser Ansicht und dem Repository gilt immer das Repository.
@@ -27,7 +28,10 @@ const TOOLS = [
       "Ausgangspunkt: Die im eigenen Betrieb eingesetzte Software SecPlanNet bietet keine API oder " +
       "CSV-Import für extern erfasste Arbeitszeiten — bestätigt durch eine direkte Support-Anfrage " +
       "(siehe 99-recherche/wettbewerb/secplannet-analyse.md). Ob das eine echte strukturelle Lücke " +
-      "oder eher eine UX-Frage ist, ist die zentrale offene Frage dieser Spur.",
+      "oder eher eine UX-Frage ist, ist die zentrale offene Frage dieser Spur. Ist-Zustand: jeder " +
+      "physische Rapport wird manuell ins System erfasst — erheblicher Aufwand. Vision: " +
+      "Mitarbeiterstunden direkt mit Details aus dem digitalen Rapport erfassen und daraus im " +
+      "Admin-Bereich automatisiert die Rechnung erstellen (siehe werkzeug-vision.md, V1).",
     stages: [
       {
         id: "t1-1",
@@ -66,6 +70,40 @@ const TOOLS = [
         ref: "OP-12",
       },
     ],
+  },
+];
+
+/**
+ * Grobe Vision weiterer künftiger Werkzeuge — Antwort auf OP-13, siehe
+ * 01-gate1-problem-markt/werkzeug-vision.md. Ausdrücklich noch nicht in
+ * Etappen aufgegliedert (keine Checkboxen), da noch nicht im Detail
+ * ausgearbeitet — jeder Punkt wird laut Projektinhaber separat
+ * aufgegriffen, wenn er dran ist.
+ */
+const VISION = [
+  {
+    id: "v2",
+    num: "V2",
+    name: "EINSATZPLANUNG: DIKTIER-TOOL",
+    color: "#22d3ee",
+    ist: "Die Einsatzplanung wird aktuell manuell vom Chef in eine Excel-Datei geschrieben und per Chat verschickt.",
+    vision: "Diktier-Funktion innerhalb der Planungsseite, sodass Spracheingabe optional zusätzlich zur Tastatur möglich ist.",
+  },
+  {
+    id: "v3",
+    num: "V3",
+    name: "REVIERDIENST-TOOL",
+    color: "#a78bfa",
+    ist: null,
+    vision: "Ein abgespeckter Bereich, angelehnt an eine Funktion von COREDINATE — definierte Rundgänge mit GPS-Punkten anlegen können.",
+  },
+  {
+    id: "v4",
+    num: "V4",
+    name: "ZENTRALISIERUNGSZIEL",
+    color: "#f0b429",
+    ist: "Aktuell verteilt auf SecPlanNet (SynComNet), COREDINATE und AbaNinja (Rechnungsstellung).",
+    vision: "Diese Funktionen sollen langfristig zentral an einem Ort zusammenlaufen. Direkt relevant für OP-12 (Mindest-Datenmodell) — ohne gemeinsames Datenmodell zwischen den Werkzeugen bleibt das Ziel unerreichbar.",
   },
 ];
 
@@ -157,11 +195,36 @@ export default function ToolTracks() {
         );
       })}
 
+      <Panel label="VISION — WEITERE WERKZEUGE" right={`${VISION.length} PUNKTE · GROB`}>
+        <div style={BASE.cardLede}>
+          Antwort auf OP-13, siehe <code>01-gate1-problem-markt/werkzeug-vision.md</code> im
+          Hauptrepository. Ausdrücklich eine grobe Fassung — noch nicht in Etappen aufgegliedert.
+          Jeder Punkt wird separat aufgegriffen, wenn er dran ist.
+        </div>
+        {VISION.map((v, i) => (
+          <div key={v.id} style={{ padding: "12px 0", borderTop: i === 0 ? "none" : "1px solid #0b171d" }}>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 5 }}>
+              <span style={{ fontFamily: MONO, fontSize: 9, fontWeight: 700, color: v.color, letterSpacing: "0.08em" }}>{v.num}</span>
+              <span style={{ fontSize: 12.5, fontWeight: 600, color: "#d5e5ec", letterSpacing: "0.02em" }}>{v.name}</span>
+            </div>
+            {v.ist && (
+              <div style={{ fontSize: 11.5, lineHeight: 1.5, color: "#456876", marginBottom: 4 }}>
+                <span style={{ color: "#2a4652" }}>Ist: </span>{v.ist}
+              </div>
+            )}
+            <div style={{ fontSize: 11.5, lineHeight: 1.5, color: "#8fb0bd" }}>
+              <span style={{ color: "#2a4652" }}>Vision: </span>{v.vision}
+            </div>
+          </div>
+        ))}
+      </Panel>
+
       <Panel label="STATUS" right={saved ? "GESPEICHERT" : "SYNC · BEREIT"}>
         <div style={{ ...BASE.cardLede, marginBottom: 0 }}>
-          Weitere Werkzeug-Spuren werden ergänzt, sobald sie entschieden sind — die Reihenfolge
-          künftiger Werkzeuge ist laut ENT-006 selbst noch offen. Kein Präzedenzfall: eine neue
-          Spur braucht eine eigene Entscheidung, keinen Automatismus.
+          Die grobe Vision steht (siehe oben), die Reihenfolge und Detailausarbeitung der
+          künftigen Werkzeuge sind laut ENT-006/ENT-007 noch offen. Kein Präzedenzfall: eine neue
+          Spur mit eigenen Etappen entsteht erst durch eine eigene Entscheidung, keinen
+          Automatismus.
         </div>
       </Panel>
     </div>
