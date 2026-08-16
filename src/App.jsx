@@ -5,13 +5,13 @@ import { store } from "./store.js";
 import { S, CSS, MONO } from "./ui.jsx";
 
 const VIEWS = [
-  { id: "roadmap", label: "PROJEKTVERLAUF" },
   { id: "tools", label: "WERKZEUG-SPUREN" },
+  { id: "roadmap", label: "PROJEKTVERLAUF" },
 ];
 const KEY = "sop-view-v1";
 
 export default function App() {
-  const [view, setView] = useState("roadmap");
+  const [view, setView] = useState("tools");
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
