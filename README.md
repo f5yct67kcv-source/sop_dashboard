@@ -1,7 +1,7 @@
-# sop_dashboard — Verwaltungswerkzeug für security-operations-platform
+# sop-dashboard — Verwaltungswerkzeug für sop-projekt
 
 Kein Projektinhalt — ein Fortschritts- und Übersichts-Dashboard für das
-Projekt in [security-operations-platform](https://github.com/f5yct67kcv-source/-security-operations-platform-).
+Projekt in [sop-projekt](https://github.com/f5yct67kcv-source/sop-projekt).
 Siehe dort `CLAUDE.md` (Ablagestruktur, Eintrag `dashboard/`) und
 `START-HIER.md` für die formale Einordnung dieses separaten Repositories.
 
